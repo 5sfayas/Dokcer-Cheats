@@ -1,0 +1,81 @@
+Docker Commands
+
+Find the version: docker version or docker -v
+Login to docker hub: docker login
+Pull an image from the Docker Hub repository; docker pull <image>
+Push an image to the Docker Hub repository: docker push <username/image>
+Search the Docker Hub repository for a particular term: docker search <term>
+Create a target tag or alias that refers to a source image: docker tag <source> <target>
+
+Running Docker Containers
+Build an image from working directory
+docker build -t <imagename> .
+. refers workdir
+-t optionally a tag in the ‘name:tag’ format
+Ex: docker build -t flask:latest .
+
+Build image for any locations docker filedocker build -t <imagename> -f <docker file path>/<url>
+Ex: docker built -t flask -f /path/to/docker/Dockerfile .
+EX: docker buitl -t flask -f github.com/5sfayas/IGm
+
+See list of created imagesdocker images
+docker imgae ls
+
+Run the docker image
+docker run <imagename>
+docker run -d -p 80:8080 flask
+-d run in background -p assing port to container flask is imagename
+
+Specify an ip-address for the container when running (See Network Related Section Below)
+docker run -i -d --name=rc --net br0 --ip 192.168.0.104
+assing network type and ip to container
+
+docker run it -add-host=example.com:10.1.1.2
+---add-host flag is used to add a single hots to ip withing the docker container. this make entry in /etc/hosts file to make fqdn for container.
+
+Remove a container upon exit
+docker run --rm <image_name>
+This is really usefull for docker leaners and testers
+
+Remove docker by image name
+docker rmi <image_name>
+
+List running containers
+docker ps
+
+List all exited containersdocker ps -aq -f status=exited
+
+Get all low-level details of the container (including IP address)docker inspect <containerId>
+this throws lots of information and its useful to find IP of container.
+Note: later I'll write a simple blog to find IP of the container
+
+Get logs of the containerdocker logs <containerId>
+very useful to find out what happened to a container
+
+Kill and Remove container
+
+Kill Container
+docker kill <containerId>
+This will stop a running container
+
+docker kill ${docker ps -q}
+kill all container
+
+
+Remove stopped containerdocker rm <containerId>
+This remove and clean container(running, stopped)
+
+Run container then remove it
+docker run rm <imagename>
+
+Create and start container with terminal interaction 
+docker run -ti <imagename>
+the useful to run bash command to container
+docker run -ti <>imagename> <command>
+docker run -ti <>imagename> /bin/bash
+
+Inspect network
+Docker Newtwork ls
+
+Verify network through the inspect commanddocker network inspect br0
+
